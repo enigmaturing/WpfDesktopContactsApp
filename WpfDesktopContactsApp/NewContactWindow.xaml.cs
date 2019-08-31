@@ -36,12 +36,14 @@ namespace WpfDesktopContactsApp
                 Email = emailTextBox.Text,
                 Phone = phoneNumberTextbox.Text
             };
-            // Second, create path to the db
-            string databaseName = "Contacts.db";
-            string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            string databasePath = System.IO.Path.Combine(folderPath, databaseName);
+            // Second, create path to the db <- UPDATE: These variables will be now created globally in App.xaml.cs, so that
+            //                                          other windows can also access to the very same variable, without having
+            //                                          to define it again.
+            //string databaseName = "Contacts.db";
+            //string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            //string databasePath = System.IO.Path.Combine(folderPath, databaseName);
             // Third, create connection to the DB, create a table that accepts contacts and store the contact in the table
-            using (SQLiteConnection connection = new SQLiteConnection(databasePath))
+            using (SQLiteConnection connection = new SQLiteConnection(App.databasePath))
             {
                 connection.CreateTable<Contact>();
                 connection.Insert(contact);
