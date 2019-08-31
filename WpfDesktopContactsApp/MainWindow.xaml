@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:WpfDesktopContactsApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <!--Init-->
-    </Grid>
+    <StackPanel Margin="10">
+        <Button Content="New contact"
+                Click="Button_Click"/>
+    </StackPanel>
 </Window>
