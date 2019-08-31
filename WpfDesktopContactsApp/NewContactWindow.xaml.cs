@@ -41,11 +41,18 @@ namespace WpfDesktopContactsApp
             string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             string databasePath = System.IO.Path.Combine(folderPath, databaseName);
             // Third, create connection to the DB, create a table that accepts contacts and store the contact in the table
-            SQLiteConnection connection = new SQLiteConnection(databasePath);
-            connection.CreateTable<Contact>();
-            connection.Insert(contact);
+            using (SQLiteConnection connection = new SQLiteConnection(databasePath))
+            {
+                connection.CreateTable<Contact>();
+                connection.Insert(contact);
+            }
+
             // Very important, CLOSE the connection to the DB at the end!!
-            connection.Close();
+            // connection.Close();
+            // UPDATE: We dont need to close the connection manually anymore, because we take advantage of the fact that
+            // the class SQLiteConnection implements the interface IDisposable (right click on the class and press "go to 
+            // definition" to check that the class implements the interface). So that for, we use the keyword 'using'
+
 
             Close();
         }
